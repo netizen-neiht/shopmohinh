@@ -1,0 +1,143 @@
+/* HEADER */
+.header {
+  width: 100%;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  font-family: Arial, sans-serif;
+}
+
+/* TOP BAR */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 30px;
+  background: #ffe4e6; /* đỏ nhạt nhẹ */
+}
+
+/* LOGO */
+.logo a {
+  font-size: 24px;
+  font-weight: bold;
+  color: #dc2626; /* đỏ vừa */
+  text-decoration: none;
+}
+
+/* SEARCH */
+.search {
+  width: 40%;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  outline: none;
+}
+
+.search:focus {
+  border-color: #dc2626;
+}
+
+/* ACTIONS */
+.actions {
+  display: flex;
+  gap: 15px;
+}
+
+.actions a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+.actions a:hover {
+  color: #dc2626;
+}
+
+/* NAVBAR */
+.nav-bar {
+  background: #fca5a5; /* đỏ nhạt hơn */
+  padding: 10px 0;
+}
+
+/* MENU */
+.menu {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* LINK */
+.menu a {
+  text-decoration: none;
+  color: white;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.menu a:hover {
+  color: #7f1d1d; /* đỏ đậm nhẹ khi hover */
+}
+
+/* DROPDOWN */
+.dropdown {
+  position: relative;
+}
+
+/* MENU CẤP 1 */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  list-style: none;
+  padding: 10px 0;
+  display: none;
+  min-width: 200px;
+  border: 1px solid #ddd;
+  z-index: 1000;
+}
+
+/* HIỆN MENU */
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+/* ITEM */
+.dropdown-menu li {
+  padding: 8px 15px;
+}
+
+.dropdown-menu li a {
+  color: #333;
+}
+
+.dropdown-menu li:hover {
+  background: #fef2f2; /* đỏ rất nhạt */
+}
+
+/* SUBMENU */
+.submenu {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  background: #fff;
+  list-style: none;
+  padding: 10px 0;
+  display: none;
+  min-width: 180px;
+  border: 1px solid #ddd;
+}
+
+.has-submenu:hover .submenu {
+  display: block;
+}
+
+.submenu li {
+  padding: 8px 15px;
+}
+
+.submenu li:hover {
+  background: #fef2f2;
+}

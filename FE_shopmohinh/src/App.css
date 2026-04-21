@@ -1,4 +1,4 @@
-.counter {
+/* .counter {
   font-size: 16px;
   padding: 5px 10px;
   border-radius: 5px;
@@ -181,4 +181,58 @@
     right: 0;
     border-right-color: var(--border);
   }
+} */
+
+
+/* Reset cơ bản */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Layout tổng */
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Nội dung chính */
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
+/* Header */
+header {
+  background: #222;
+  color: white;
+  padding: 15px;
+}
+
+/* Footer */
+footer {
+  background: #222;
+  color: white;
+  text-align: center;
+  padding: 10px;
+}
+
+/* Link */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Button */
+button {
+  cursor: pointer;
+}
+
+/* Fix click product */
+.product-item {
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
 }

@@ -1,15 +1,17 @@
-import { Outlet } from 'react-router-dom'
-import Header from '../components/Header'
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import { Outlet } from "react-router-dom";
 
 function UserLayout() {
   return (
-    <div>
+    <div className="layout">
       <Header />
-      <main>
-        <Outlet />
+      <main className="content">
+        <Outlet /> {/* Nơi hiển thị nội dung của các trang con */}
       </main>
+      <Footer />
     </div>
-  )
+  );
 }
 
-export default UserLayout
+export default UserLayout;
