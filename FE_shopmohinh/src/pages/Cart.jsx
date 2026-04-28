@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../assets/css/Cart.css";
 
@@ -6,23 +6,37 @@ function Cart() {
   const [cartItems, setCartItems] = useState([]);
   const navigate = useNavigate();
 
+  const getUser = () => JSON.parse(localStorage.getItem("user"));
+
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("cart")) || [];
+    const user = getUser();
+
+    if (!user) {
+      alert("Bạn cần đăng nhập!");
+      navigate("/login");
+      return;
+    }
+
+    const data = JSON.parse(localStorage.getItem(`cart_${user.id}`)) || [];
     setCartItems(data);
   }, []);
 
-  // tăng số lượng
+  // 🔼 tăng số lượng
   const increaseQty = (id) => {
+    const user = getUser();
+
     const updated = cartItems.map(item =>
       item.id === id ? { ...item, quantity: item.quantity + 1 } : item
     );
 
     setCartItems(updated);
-    localStorage.setItem("cart", JSON.stringify(updated));
+    localStorage.setItem(`cart_${user.id}`, JSON.stringify(updated));
   };
 
-  // giảm số lượng
+  // 🔽 giảm số lượng
   const decreaseQty = (id) => {
+    const user = getUser();
+
     const updated = cartItems.map(item =>
       item.id === id && item.quantity > 1
         ? { ...item, quantity: item.quantity - 1 }
@@ -30,71 +44,85 @@ function Cart() {
     );
 
     setCartItems(updated);
-    localStorage.setItem("cart", JSON.stringify(updated));
+    localStorage.setItem(`cart_${user.id}`, JSON.stringify(updated));
   };
 
-  // xóa sản phẩm
+  // ❌ xóa sản phẩm
   const removeItem = (id) => {
+    const user = getUser();
+
     const updated = cartItems.filter(item => item.id !== id);
 
     setCartItems(updated);
-    localStorage.setItem("cart", JSON.stringify(updated));
+    localStorage.setItem(`cart_${user.id}`, JSON.stringify(updated));
   };
 
-  // tổng tiền
+  // 💰 tổng tiền
   const totalPrice = cartItems.reduce(
-    (total, item) => total + item.price * item.quantity,
+    (sum, item) => sum + item.price * item.quantity,
     0
   );
 
-  // chuyển sang checkout
+  // 🚀 thanh toán
   const handleCheckout = () => {
     if (cartItems.length === 0) {
-      alert("Giỏ hàng đang trống!");
+      alert("Giỏ hàng trống!");
       return;
     }
+
     navigate("/checkout");
   };
 
   return (
-    <div className="cart-container">
-      <h1 className="cart-title">Giỏ hàng của bạn</h1>
+  <div className="cart-container">
+    <h1>🛒 Giỏ hàng của bạn</h1>
 
-      {cartItems.length === 0 ? (
-        <p className="cart-empty">Giỏ hàng đang trống</p>
-      ) : (
-        <div className="cart-grid">
-          {/* danh sách sản phẩm */}
-          <div className="cart-list">
-            {cartItems.map((item) => (
-              <div key={item.id} className="cart-item">
-                <img src={item.image} alt={item.name} />
+    {cartItems.length === 0 ? (
+      <p>Chưa có sản phẩm</p>
+    ) : (
+      <div className="cart-grid">
 
-                <div className="cart-info">
-                  <h2>{item.name}</h2>
-                  <p className="price">
-                    {item.price.toLocaleString()} VND
-                  </p>
+        {/* 🔥 BÊN TRÁI - danh sách */}
+        <div className="cart-left">
+          {cartItems.map(item => (
+            <div key={item.id} className="cart-item">
 
-                  <div className="quantity">
-                    <button onClick={() => decreaseQty(item.id)}>-</button>
-                    <span>{item.quantity}</span>
-                    <button onClick={() => increaseQty(item.id)}>+</button>
-                  </div>
+              <img
+                src={`http://localhost:3000/uploads/${item.image}`}
+                alt={item.name}
+              />
+
+              <div className="cart-info">
+                <h3>{item.name}</h3>
+                <p>{Number(item.price).toLocaleString()} VND</p>
+
+                <div className="qty">
+                  <button onClick={() => decreaseQty(item.id)}>-</button>
+                  <span>{item.quantity}</span>
+                  <button onClick={() => increaseQty(item.id)}>+</button>
                 </div>
 
-                <button
-                  onClick={() => removeItem(item.id)}
-                  className="remove-btn"
-                >
-                  Xóa
-                </button>
+                <p>
+                  Tổng: {(item.price * item.quantity).toLocaleString()} VND
+                </p>
               </div>
-            ))}
-          </div>
 
-          {/* tổng tiền */}
-          <div className="cart-summary">
+              <button
+                className="remove-btn"
+                onClick={() => removeItem(item.id)}
+              >
+                Xóa
+              </button>
+
+            </div>
+          ))}
+        </div>
+
+        {/* 🔥 BÊN PHẢI */}
+        <div className="cart-right">
+
+          {/* 💰 tổng tiền */}
+          <div className="summary-box">
             <h2>Tổng đơn hàng</h2>
 
             <div className="summary-row">
@@ -106,15 +134,18 @@ function Cart() {
               <span>Tổng cộng:</span>
               <span>{totalPrice.toLocaleString()} VND</span>
             </div>
-
-            <button className="checkout-btn" onClick={handleCheckout}>
-              Thanh toán
-            </button>
           </div>
+
+          {/* 🚀 thanh toán */}
+          <button className="checkout-btn" onClick={handleCheckout}>
+            Thanh toán
+          </button>
+
         </div>
-      )}
-    </div>
-  );
+      </div>
+    )}
+  </div>
+);
 }
 
 export default Cart;

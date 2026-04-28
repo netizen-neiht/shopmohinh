@@ -1,10 +1,11 @@
-// src/pages/Login.jsx
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../assets/css/Auth.css";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -21,7 +22,21 @@ function Login() {
       const data = await res.json();
 
       if (res.ok) {
+        // 🔥 LƯU USER
+        localStorage.setItem("user", JSON.stringify(data));
+
         alert("Đăng nhập thành công");
+
+        // 🔥 PHÂN QUYỀN
+        if (data.role === "admin") {
+          navigate("/admin/dashboard");
+        } else {
+          navigate("/");
+        }
+
+        // 🔥 QUAN TRỌNG: reload để header cập nhật
+        window.location.reload();
+
       } else {
         alert(data.message);
       }
@@ -51,10 +66,12 @@ function Login() {
         />
 
         <button type="submit">Đăng nhập</button>
-         <p>Bạn chưa có tài khoản? <a href="/register">Đăng ký ngay</a></p>
-      </form>
 
-       
+        <p>
+          Bạn chưa có tài khoản?{" "}
+          <a href="/register">Đăng ký ngay</a>
+        </p>
+      </form>
     </div>
   );
 }

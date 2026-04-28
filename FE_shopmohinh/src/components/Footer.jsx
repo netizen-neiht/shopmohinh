@@ -17,9 +17,10 @@ function Footer() {
         <div className="footer-col">
           <h4>Danh mục</h4>
           <ul>
-            <li>Figure</li>
-            <li>Gundam</li>
-            <li>Model Kit</li>
+            <li><Link to="/products?type=Figure">Figure</Link></li>
+            <li><Link to="/products?type=Bandai">Gundam</Link></li>
+            <li><Link to="/products?type=Kotobukiya">Kotobukiya</Link></li>
+            <li><Link to="/products?type=Model+Kit+Trung">Model Kit Trung</Link></li>
           </ul>
         </div>
 

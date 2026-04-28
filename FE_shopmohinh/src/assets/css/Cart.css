@@ -1,24 +1,25 @@
 .cart-container {
-  max-width: 1100px;
+  width: 90%;
   margin: auto;
-  padding: 20px;
 }
 
-.cart-title {
-  font-size: 26px;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
-.cart-empty {
-  color: gray;
-}
-
-/* layout */
+/* 🔥 layout 2 cột */
 .cart-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
+  display: flex;
   gap: 20px;
+}
+
+/* trái */
+.cart-left {
+  flex: 2;
+}
+
+/* phải */
+.cart-right {
+  flex: 1;
+  position: sticky;
+  top: 20px;
+  height: fit-content;
 }
 
 /* item */
@@ -26,108 +27,60 @@
   display: flex;
   gap: 15px;
   border: 1px solid #ddd;
-  padding: 15px;
-  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 15px;
   align-items: center;
-  background: #fff;
 }
 
 .cart-item img {
   width: 80px;
   height: 80px;
   object-fit: cover;
-  border-radius: 8px;
 }
 
 .cart-info {
   flex: 1;
 }
 
-.cart-info h2 {
-  font-size: 16px;
-  margin-bottom: 5px;
-}
-
-.price {
-  color: red;
-  font-weight: bold;
-}
-
 /* quantity */
-.quantity {
+.qty {
   display: flex;
-  align-items: center;
   gap: 10px;
-  margin-top: 5px;
-}
-
-.quantity button {
-  padding: 4px 10px;
-  border: none;
-  background: #eee;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-.quantity button:hover {
-  background: #ccc;
-}
-
-/* remove */
-.remove-btn {
-  color: red;
-  border: none;
-  background: none;
-  cursor: pointer;
-}
-
-.remove-btn:hover {
-  text-decoration: underline;
+  margin: 5px 0;
 }
 
 /* summary */
-.cart-summary {
+.summary-box {
   border: 1px solid #ddd;
   padding: 15px;
-  border-radius: 10px;
-  background: #fff;
-  height: fit-content;
-}
-
-.cart-summary h2 {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .summary-row {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 8px;
+  margin: 5px 0;
 }
 
-.summary-row.total {
+.total {
   font-weight: bold;
-  font-size: 18px;
+  color: red;
 }
 
 /* button */
 .checkout-btn {
   width: 100%;
-  margin-top: 15px;
-  padding: 10px;
-  background: #2563eb;
+  padding: 12px;
+  background: red;
   color: white;
   border: none;
-  border-radius: 8px;
   cursor: pointer;
 }
 
-.checkout-btn:hover {
-  background: #1e40af;
-}
-
-/* responsive */
-@media (max-width: 768px) {
-  .cart-grid {
-    grid-template-columns: 1fr;
-  }
+.remove-btn {
+  background: gray;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
 }

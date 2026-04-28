@@ -1,11 +1,31 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import "../assets/css/Header.css";
 
 function Header() {
+  const [keyword, setKeyword] = useState("");
+  const navigate = useNavigate();
+
+  // 🔥 lấy user từ localStorage
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const handleSearch = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      if (!keyword.trim()) return;
+      navigate(`/products?q=${keyword}`);
+    }
+  };
+
+  // 🔥 logout
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    navigate("/");
+    window.location.reload(); // 🔥 force re-render
+  };
+
   return (
     <header className="header">
-
-      {/* TOP */}
       <div className="top-bar">
         <div className="logo">
           <Link to="/">Neiht Hobby Store</Link>
@@ -15,26 +35,42 @@ function Header() {
           className="search"
           type="text"
           placeholder="Tìm mô hình..."
+          value={keyword}
+          onChange={(e) => setKeyword(e.target.value)}
+          onKeyDown={handleSearch}
         />
 
+        {/* 🔥 ACTIONS */}
         <div className="actions">
-          <Link to="/login">Đăng nhập</Link>
-          <Link to="/cart">🛒 Giỏ hàng</Link>
+          {user ? (
+            <>
+              <span>👋 {user.username}</span>
+
+              <button onClick={handleLogout}>Đăng xuất</button>
+
+              {/* chỉ user mới có giỏ hàng */}
+              {user.role !== "admin" && (
+                <Link to="/cart">🛒 Giỏ hàng</Link>
+              )}
+            </>
+          ) : (
+            <>
+              <Link to="/login">Đăng nhập</Link>
+              <Link to="/cart">🛒 Giỏ hàng</Link>
+            </>
+          )}
         </div>
       </div>
 
       {/* NAV */}
       <nav className="nav-bar">
         <ul className="menu">
-
           <li><Link to="/">Trang chủ</Link></li>
 
           <li className="dropdown">
             <Link to="/products">Sản phẩm</Link>
 
             <ul className="dropdown-menu">
-
-              {/* BANDai */}
               <li className="has-submenu">
                 <Link to="/products?type=Bandai">Bandai</Link>
                 <ul className="submenu">
@@ -46,7 +82,6 @@ function Header() {
                 </ul>
               </li>
 
-              {/* FIGURE */}
               <li className="has-submenu">
                 <Link to="/products?type=Figure">Figure</Link>
                 <ul className="submenu">
@@ -55,24 +90,20 @@ function Header() {
                 </ul>
               </li>
 
-              {/* KOTOBUKIYA */}
               <li>
                 <Link to="/products?type=Kotobukiya">Kotobukiya</Link>
               </li>
 
               <li>
-                <Link to="/products?type=Model Kit Trung">Model Kit Trung </Link>
+                <Link to="/products?type=Model Kit Trung">Model Kit Trung</Link>
               </li>
-
             </ul>
           </li>
 
           <li><Link to="/wishlist">Yêu thích</Link></li>
           <li><Link to="/contact">Liên hệ</Link></li>
-
         </ul>
       </nav>
-
     </header>
   );
 }
