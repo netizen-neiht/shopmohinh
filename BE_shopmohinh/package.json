@@ -1,0 +1,28 @@
+{
+  "name": "shopmohinh",
+  "version": "1.0.0",
+  "description": "1 web ban mo hinh",
+  "homepage": "https://github.com/netizen-neiht/shopmohinh#readme",
+  "bugs": {
+    "url": "https://github.com/netizen-neiht/shopmohinh/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/netizen-neiht/shopmohinh.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "mysql2": "^3.20.0"
+  }
+}
