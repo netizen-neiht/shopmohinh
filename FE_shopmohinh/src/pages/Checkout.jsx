@@ -74,7 +74,8 @@ function Checkout() {
     0
   );
 
-  const handleSubmit = () => {
+  // ================= 🔥 SUBMIT =================
+  const handleSubmit = async () => {
     const err = validate();
 
     if (Object.keys(err).length > 0) {
@@ -84,12 +85,47 @@ function Checkout() {
 
     setErrors({});
 
-    alert("🎉 Đặt hàng thành công!");
+    try {
+      const user = getUser();
 
-    const user = getUser();
-    localStorage.removeItem(`cart_${user.id}`);
+      // format items đúng backend
+      const items = cartItems.map((item) => ({
+        product_id: item.id,
+        quantity: item.quantity,
+        price: item.price,
+      }));
 
-    navigate("/");
+      const res = await fetch("http://localhost:3000/api/orders/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_id: user.id,
+          items: items,
+          total: total,
+          payment_method: form.payment,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.error || "Lỗi đặt hàng");
+        return;
+      }
+
+      alert("🎉 Đặt hàng thành công!");
+
+      // clear cart
+      localStorage.removeItem(`cart_${user.id}`);
+
+      navigate("/");
+
+    } catch (err) {
+      console.error(err);
+      alert("Lỗi server");
+    }
   };
 
   return (
@@ -192,7 +228,7 @@ function Checkout() {
             <span>{total.toLocaleString()} VND</span>
           </div>
 
-          {/* 🔥 BUTTONS */}
+          {/* BUTTONS */}
           <div className="checkout-actions">
             <button
               className="back-btn"

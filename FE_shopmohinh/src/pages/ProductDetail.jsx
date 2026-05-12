@@ -8,15 +8,14 @@ function ProductDetail() {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // 🔥 slider state
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   useEffect(() => {
-    fetch(`http://localhost:3000/products/${id}`)
+    fetch(`http://localhost:3000/api/products/${id}`)
       .then(res => res.json())
       .then(data => {
-        if (!data || Object.keys(data).length === 0) {
-          setProduct(null);
-        } else {
-          setProduct(data);
-        }
+        setProduct(data);
         setLoading(false);
       })
       .catch(err => {
@@ -41,32 +40,61 @@ function ProductDetail() {
     alert("Đã thêm vào giỏ hàng 🛒");
   };
 
-  // loading
   if (loading) return <p>Đang tải...</p>;
-
-  // không tìm thấy
   if (!product) return <p>Không tìm thấy sản phẩm</p>;
+
+  // 🔥 gộp ảnh chính + ảnh phụ
+  const allImages = [
+    product.image,
+    ...(product.images || [])
+  ];
+
+  // 🔥 next / prev
+  const nextImage = () => {
+    setCurrentIndex((prev) =>
+      prev === allImages.length - 1 ? 0 : prev + 1
+    );
+  };
+
+  const prevImage = () => {
+    setCurrentIndex((prev) =>
+      prev === 0 ? allImages.length - 1 : prev - 1
+    );
+  };
 
   return (
     <div className="product-detail">
 
-      {/* quay lại */}
       <Link to="/" className="back-link">
         ← Quay lại
       </Link>
 
-      {/* layout */}
       <div className="detail-container">
 
-        {/* ảnh bên trái */}
+        {/* LEFT */}
         <div className="detail-left">
-          <img
-            src={`http://localhost:3000/uploads/${product.image}`}
-            alt={product.name}
-          />
+
+          <div className="image-slider">
+
+            <button className="arrow left" onClick={prevImage}>
+              ❮
+            </button>
+
+            <img
+              src={`http://localhost:3000/uploads/${allImages[currentIndex]}`}
+              alt="product"
+              className="main-image"
+            />
+
+            <button className="arrow right" onClick={nextImage}>
+              ❯
+            </button>
+
+          </div>
+
         </div>
 
-        {/* thông tin bên phải */}
+        {/* RIGHT */}
         <div className="detail-right">
           <h1>{product.name}</h1>
 
@@ -75,11 +103,7 @@ function ProductDetail() {
           </p>
 
           <p><strong>Loại:</strong> {product.type_name}</p>
-
-          <p>
-            <strong>Grade:</strong>{" "}
-            {product.grade_name || "Không có"}
-          </p>
+          <p><strong>Grade:</strong> {product.grade_name || "Không có"}</p>
 
           <p>
             <strong>Mô tả:</strong>{" "}
@@ -95,7 +119,6 @@ function ProductDetail() {
         </div>
 
       </div>
-
     </div>
   );
 }

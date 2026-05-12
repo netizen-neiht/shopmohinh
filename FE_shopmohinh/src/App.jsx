@@ -11,10 +11,11 @@ import Register from "./pages/Register"
 import Wishlist from "./pages/Wishlist"
 import Checkout from "./pages/Checkout"
 import ProductDetail from "./pages/ProductDetail"
-
+import Profile from "./pages/Profile"
 // 🔥 thêm
 import Dashboard from "./pages/admin/Dashboard"
-
+import Users from "./pages/admin/User"
+import Orders from "./pages/admin/Orders"
 function App() {
   return (
     <BrowserRouter>
@@ -31,11 +32,13 @@ function App() {
           <Route path="wishlist" element={<Wishlist />} />
           <Route path="checkout" element={<Checkout />} />
           <Route path="product/:id" element={<ProductDetail />} />
+          <Route path="profile" element={<Profile />} />
         </Route>
 
         {/* 🔥 ADMIN */}
         <Route path="/admin/dashboard" element={<Dashboard />} />
-
+        <Route path="/admin/users" element={<Users />} />
+        <Route path="/admin/orders" element={<Orders />} />
       </Routes>
     </BrowserRouter>
   )

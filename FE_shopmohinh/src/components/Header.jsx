@@ -44,7 +44,7 @@ function Header() {
         <div className="actions">
           {user ? (
             <>
-              <span>👋 {user.username}</span>
+              <Link to="/profile">👋 {user.username}</Link>
 
               <button onClick={handleLogout}>Đăng xuất</button>
 

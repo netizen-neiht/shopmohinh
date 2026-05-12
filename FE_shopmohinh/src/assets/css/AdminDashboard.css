@@ -1,0 +1,154 @@
+/* ===== GLOBAL ===== */
+.dashboard {
+  padding: 20px;
+  background: #f5f6fa;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+/* ===== HEADER ===== */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1e1e2f;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.dashboard-header h1 {
+  font-size: 20px;
+  letter-spacing: 1px;
+}
+
+.dashboard-header button {
+  background: #ff4d4f;
+  border: none;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.dashboard-header button:hover {
+  background: #d9363e;
+}
+
+/* ===== FORM ===== */
+.dashboard form {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.dashboard form input,
+.dashboard form textarea,
+.dashboard form select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+}
+
+.dashboard form textarea {
+  grid-column: span 2;
+  resize: none;
+  min-height: 80px;
+}
+
+.dashboard form input[type="file"] {
+  grid-column: span 2;
+}
+
+.dashboard form button {
+  grid-column: span 2;
+  padding: 12px;
+  background: #1677ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.dashboard form button:hover {
+  background: #0f5ed7;
+}
+
+/* ===== PRODUCT GRID ===== */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 15px;
+}
+
+/* ===== PRODUCT CARD ===== */
+.product-grid > div {
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+  transition: 0.2s;
+}
+
+.product-grid > div:hover {
+  transform: translateY(-3px);
+}
+
+.product-grid img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.product-grid h3 {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.product-grid p {
+  color: #666;
+  font-weight: bold;
+}
+
+/* ===== BUTTONS ===== */
+.product-grid button {
+  margin-top: 8px;
+  margin-right: 5px;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+/* sửa */
+.product-grid button:first-of-type {
+  background: #52c41a;
+  color: white;
+}
+
+.product-grid button:first-of-type:hover {
+  background: #389e0d;
+}
+
+/* xoá */
+.product-grid button:last-of-type {
+  background: #ff4d4f;
+  color: white;
+}
+
+.product-grid button:last-of-type:hover {
+  background: #d9363e;
+}
