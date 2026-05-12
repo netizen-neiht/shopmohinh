@@ -14,38 +14,43 @@ app.use(cors({
   credentials: true
 }));
 
+// ===== BODY =====
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// ===== STATIC IMAGE =====
+// ===== STATIC =====
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-// ===== IMPORT ROUTES =====
+// ===== ROUTES =====
 const productRoutes = require("./routes/products");
-const authRoutes = require("./routes/auth"); // 🔥 THÊM DÒNG NÀY
+const authRoutes = require("./routes/auth");
+const orderRoutes = require("./routes/order");
+const userRoutes = require("./routes/users");
 
-// ===== USE ROUTES =====
-app.use("/products", productRoutes);
-app.use("/", authRoutes); // 🔥 THÊM DÒNG NÀY
+// 🔥 CHUẨN HOÁ API
+app.use("/api/products", productRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/orders", orderRoutes);
+app.use("/api/users", userRoutes);
 
-// ===== HEALTH CHECK =====
-app.get('/health', (req, res) => {
+// ===== TEST =====
+app.get("/health", (req, res) => {
   res.json({
-    status: 'success',
-    message: 'Server is running',
-    timestamp: new Date().toISOString()
+    status: "success",
+    message: "Server OK",
+    time: new Date()
   });
 });
 
-// ===== START SERVER =====
+// ===== START =====
 app.listen(PORT, () => {
-  console.log(` Server chạy tại http://localhost:${PORT}`);
+  console.log(`🚀 Server chạy tại http://localhost:${PORT}`);
 });
 
 // ===== 404 =====
 app.use((req, res) => {
   res.status(404).json({
-    status: 'error',
-    message: 'API endpoint not found'
+    status: "error",
+    message: "API không tồn tại"
   });
 });

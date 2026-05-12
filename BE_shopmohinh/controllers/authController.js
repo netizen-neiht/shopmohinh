@@ -6,7 +6,7 @@ exports.register = (req, res) => {
 
   const sql = `
     INSERT INTO users 
-    (username, password, role, full_name, email, phone_number)
+    (username, password, role, full_name, email, phone)
     VALUES (?, ?, 'customer', ?, ?, ?)
   `;
 
@@ -17,7 +17,7 @@ exports.register = (req, res) => {
       if (err) {
         console.error(err);
 
-        // ❌ trùng username/email
+        // trùng username/email
         if (err.code === "ER_DUP_ENTRY") {
           return res.status(400).json({
             message: "Username hoặc Email đã tồn tại"
